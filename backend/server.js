@@ -7,8 +7,8 @@ const app = express()
 const api = require('./api')()
 app.use('/api', api)
 
-
-const port = process.env.PORT || 8080
+// Use port depending on environment
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8081
 
 // Finally, start app
-app.listen(8080)
+app.listen(port)
