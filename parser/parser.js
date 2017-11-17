@@ -21,6 +21,8 @@ for (var sheetName in workbook.Sheets) {
 
 console.log("Sheet loaded.")
 
+console.log(sheet);
+
 const sampleData = [
     {
         indicator: "Women giving birth by age 15",
