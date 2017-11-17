@@ -16,7 +16,7 @@ class App extends Component {
   close = () => this.setState({ countryModal: false })
 
   handleMove(geography, evt) {
-    alert(geography.properties.name)
+    console.log(geography.id)
   }
 
   render() {
