@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:cfg-london/team-20.git",
   "author": "Team 20",
-  "license": "The Unlicense"
+  "license": "The Unlicense",
+  "dependencies": {
+    "xlsx": "^0.11.9"
+  }
 }
