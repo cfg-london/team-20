@@ -4,6 +4,8 @@ import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simp
 
 import './App.css'
 
+import worldMap from './static/world-50m'
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -38,7 +40,7 @@ class App extends Component {
           }}
           >
           <ZoomableGroup center={[0,20]} disablePanning>
-            <Geographies geographyUrl='./static/world-50m.json'>
+            <Geographies geographyUrl={worldMap}>
               {(geographies, projection) => geographies.map((geography, i) => geography.id !== 'ATA' && (
                 <Geography
                   key={i}
@@ -46,13 +48,13 @@ class App extends Component {
                   projection={projection}
                   style={{
                     default: {
-                      fill: "#ECEFF1",
-                      stroke: "#607D8B",
+                      fill: "#55bab2",
+                      stroke: "#ffffff",
                       strokeWidth: 0.75,
                       outline: "none",
                     },
                     hover: {
-                      fill: "#607D8B",
+                      fill: "#ffffff",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none",
