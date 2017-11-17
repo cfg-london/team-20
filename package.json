@@ -13,7 +13,7 @@
     "xlsx": "^0.11.9"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node backend/server.js"
   },
   "bugs": {
     "url": "https://github.com/cfg-london/team-20/issues"
