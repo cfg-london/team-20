@@ -2,7 +2,34 @@ const xlsx = require("xlsx");
 const csv = require("csvtojson");
 
 function parse(rows) {
-    console.log(rows);
+    const indicators = [
+        // "indicator": [columnInt, columnInt]
+    ];
+
+    // Read the first row to build the indicators
+    let indicatorName = "Indicator";
+    let indicatorColumns = [];
+    let started = false;
+    for (var column = 0; column < rows[0].length; column++) {
+        var cell = rows[0][column];
+
+        if (cell !== "") {
+            if (indicatorName !== "Indicator") {
+                console.log(indicatorName, indicatorColumns);
+            }
+
+            indicatorName = cell;
+            indicatorColumns = [];
+            started = true;
+        }
+
+        // Skip if the current indicator is "Indicator"
+        if (indicatorName === "Indicator") {
+            continue;
+        }
+
+        indicatorColumns.push(column);
+    }
 }
 
 function load() {
