@@ -5,44 +5,47 @@ function parse(rows) {
     console.log(rows);
 }
 
-console.log("Loading workbook...")
+function load() {
+    console.log("Loading workbook...")
 
-const workbook = xlsx.readFile("data.xlsx", {});
-console.log("Workbook loaded.")
+    const workbook = xlsx.readFile("data.xlsx", {});
+    console.log("Workbook loaded.")
 
-let sheet;
+    let sheet;
 
-for (var sheetName in workbook.Sheets) {
-    if (workbook.Sheets.hasOwnProperty(sheetName)) {
-        var currSheet = workbook.Sheets[sheetName];
-        if (sheetName != "Indicator Data") {
-            console.log(`Unexpected sheet name '${sheetName}'.`)
-            return;
+    for (var sheetName in workbook.Sheets) {
+        if (workbook.Sheets.hasOwnProperty(sheetName)) {
+            var currSheet = workbook.Sheets[sheetName];
+            if (sheetName != "Indicator Data") {
+                console.log(`Unexpected sheet name '${sheetName}'.`)
+                return;
+            }
+
+            sheet = currSheet;
         }
-
-        sheet = currSheet;
     }
+
+    console.log("Sheet loaded.")
+
+    const csvContent = xlsx.utils.sheet_to_csv(sheet);
+    const rows = [];
+
+    csv({noheader: true})
+        .fromString(csvContent)
+        .on('csv', line => {
+            rows.push(line);
+        })
+        .on('done', err => {
+            if (err != null) {
+                console.log("An error was encountered parsing the converted csv.");
+                return;
+            }
+
+            parse(rows);
+        });
 }
 
-console.log("Sheet loaded.")
-
-const csvContent = xlsx.utils.sheet_to_csv(sheet);
-const rows = [];
-
-csv({noheader: true})
-    .fromString(csvContent)
-    .on('csv', line => {
-        rows.push(line);
-    })
-    .on('done', err => {
-        if (err != null) {
-            console.log("An error was encountered parsing the converted csv.");
-            return;
-        }
-
-        parse(rows);
-    });
-
+load();
 
 const sampleData = [
     {
