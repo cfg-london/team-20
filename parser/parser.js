@@ -86,21 +86,19 @@ function load() {
 
 load();
 
-const sampleData = [
-    {
-        country: "Columbia",
-        surveys: [
-            {
-                indicator: "Women giving birth by age 15",
-                survey_full: "2015 DHS",
-                survey_year: "2015",
-                groups: {
+const sampleData = {
+    "Columbia": [
+        {
+            survey_full: "2015 DHS",
+            survey_year: "2015",
+            indicators: {
+                "Women giving birth by age 15": {
                     "Total 20-49": 2.1,
                 },
             },
-        ],
-    },
-];
+        },
+    ],
+};
 
 
 // TODO: Make sure we think about how this can be updated etc
