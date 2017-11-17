@@ -1,5 +1,6 @@
 # team-20
 
+
 ## Development
 
 ### Frontend
@@ -11,6 +12,8 @@ cd frontend
 NODE_ENV=development npm start
 ```
 
+When done, run `npm run build` to compile and bundle the frontend.
+
 ### Backend
 
 To start the backend server, in development mode:
@@ -19,3 +22,5 @@ To start the backend server, in development mode:
 cd backend
 NODE_ENV=development npm start
 ```
+
+
