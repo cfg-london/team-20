@@ -15,7 +15,7 @@ function getIndicatorColumns(rows) {
 
     // Note: start from column 2, skipping "Indicator"
     for (var column = 2; column < rows[0].length; column++) {
-        var cell = rows[0][column];
+        let cell = rows[0][column];
 
         // If we encounter a non-empty cell...
         if (cell !== "") {
