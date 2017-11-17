@@ -1,6 +1,6 @@
 # team-20
 
-## This uses `yarn`, it's better than `npm`. Believe me.
+## This uses `yarn`, it's better than `npm`. Believe me.
 
 (It still uses `npm` internally though.)
 
