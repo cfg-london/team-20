@@ -2,9 +2,11 @@
 
 ## This uses `yarn`, it's better than `npm`. Believe me.
 
-(It still uses `npm` internally though.)
+**[Follow these instructions to install `yarn`.](https://yarnpkg.com/lang/en/docs/install/)** (It still uses `npm` internally.)
 
-**[Follow these instructions.](https://yarnpkg.com/lang/en/docs/install/)**
+_Don't want to follow the installation instructions?_
+
+Just run this `npm install --global yarn`—there are [some caveats](https://yarnpkg.com/lang/en/docs/install/#alternatives-tab) though.
 
 ## Don't like all that "merging" business?
 
