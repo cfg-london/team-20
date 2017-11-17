@@ -1,0 +1,9 @@
+{
+  "name": "cfg-london-team-20",
+  "version": "1.0.0",
+  "description": "Code for Good 2017",
+  "main": "index.js",
+  "repository": "git@github.com:cfg-london/team-20.git",
+  "author": "Team 20",
+  "license": "MIT"
+}
