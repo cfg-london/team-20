@@ -10,6 +10,7 @@
   "author": "Team 20",
   "license": "UNLICENSED",
   "dependencies": {
+    "csvtojson": "^1.1.9",
     "xlsx": "^0.11.9"
   },
   "scripts": {

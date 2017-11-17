@@ -1,4 +1,5 @@
 const xlsx = require("xlsx");
+const csv = require("csvtojson");
 
 console.log("Loading workbook...")
 
@@ -22,7 +23,12 @@ for (var sheetName in workbook.Sheets) {
 console.log("Sheet loaded.")
 
 const csvContent = xlsx.utils.sheet_to_csv(sheet);
-console.log(csvContent);
+
+csv({noheader: true})
+    .fromString(csvContent)
+    .on('csv', line => {
+        console.log(line);
+    });
 
 const sampleData = [
     {
