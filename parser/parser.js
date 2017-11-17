@@ -1,35 +1,47 @@
 const xlsx = require("xlsx");
 const csv = require("csvtojson");
 
-function parse(rows) {
-    const indicators = [
+function getIndicatorColumns(rows) {
+    const indicators = {
         // "indicator": [columnInt, columnInt]
-    ];
+    };
 
-    // Read the first row to build the indicators
-    let indicatorName = "Indicator";
-    let indicatorColumns = [];
+    // Assume initiail indicator name is "Indicator"
+    let indicatorName;
+    let indicatorColumns;
+
+    // We don't care about the title "Indicator"
     let started = false;
-    for (var column = 0; column < rows[0].length; column++) {
+
+    // Note: start from column 2, skipping "Indicator"
+    for (var column = 2; column < rows[0].length; column++) {
         var cell = rows[0][column];
 
+        // If we encounter a non-empty cell...
         if (cell !== "") {
-            if (indicatorName !== "Indicator") {
-                console.log(indicatorName, indicatorColumns);
+            // Don't save if there's no previous
+            if (started) {
+                indicators[indicatorName] = indicatorColumns;
             }
 
             indicatorName = cell;
             indicatorColumns = [];
-            started = true;
-        }
 
-        // Skip if the current indicator is "Indicator"
-        if (indicatorName === "Indicator") {
-            continue;
+            started = true;
         }
 
         indicatorColumns.push(column);
     }
+
+    // Add the last indicator
+    indicators[indicatorName] = indicatorColumns;
+
+    return indicators;
+}
+
+function parse(rows) {
+    const indicatorColumns = getIndicatorColumns(rows);
+    console.log(indicatorColumns);
 }
 
 function load() {
