@@ -88,10 +88,10 @@ load();
 
 const sampleData = [
     {
-        indicator: "Women giving birth by age 15",
+        country: "Columbia",
         surveys: [
             {
-                country: "Columbia",
+                indicator: "Women giving birth by age 15",
                 survey_full: "2015 DHS",
                 survey_year: "2015",
                 groups: {
