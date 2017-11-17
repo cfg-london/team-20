@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "description": "Code for Good 2017",
   "main": "index.js",
-  "repository": "git@github.com:cfg-london/team-20.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cfg-london/team-20.git"
+  },
   "author": "Team 20",
-  "license": "The Unlicense",
+  "license": "UNLICENSED",
   "dependencies": {
     "xlsx": "^0.11.9"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "bugs": {
+    "url": "https://github.com/cfg-london/team-20/issues"
+  },
+  "homepage": "https://github.com/cfg-london/team-20#readme"
 }
