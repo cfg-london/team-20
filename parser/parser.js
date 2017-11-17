@@ -1,6 +1,10 @@
 const xlsx = require("xlsx");
 const csv = require("csvtojson");
 
+function parse(rows) {
+    console.log(rows);
+}
+
 console.log("Loading workbook...")
 
 const workbook = xlsx.readFile("data.xlsx", {});
@@ -23,12 +27,22 @@ for (var sheetName in workbook.Sheets) {
 console.log("Sheet loaded.")
 
 const csvContent = xlsx.utils.sheet_to_csv(sheet);
+const rows = [];
 
 csv({noheader: true})
     .fromString(csvContent)
     .on('csv', line => {
-        console.log(line);
+        rows.push(line);
+    })
+    .on('done', err => {
+        if (err != null) {
+            console.log("An error was encountered parsing the converted csv.");
+            return;
+        }
+
+        parse(rows);
     });
+
 
 const sampleData = [
     {
