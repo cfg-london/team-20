@@ -21,7 +21,8 @@ for (var sheetName in workbook.Sheets) {
 
 console.log("Sheet loaded.")
 
-console.log(sheet);
+const csvContent = xlsx.utils.sheet_to_csv(sheet);
+console.log(csvContent);
 
 const sampleData = [
     {
