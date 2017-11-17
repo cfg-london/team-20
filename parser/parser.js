@@ -21,3 +21,18 @@ for (var sheetName in workbook.Sheets) {
 
 console.log("Sheet loaded.")
 
+const sampleData = [
+    {
+        indicator: "Women giving birth by age 15",
+        surveys: [
+            {
+                country: "Columbia",
+                survey_full: "2015 DHS",
+                survey_year: "2015",
+                groups: [
+                    ["Total 20-49", 2.1],
+                ],
+            },
+        ],
+    },
+];
