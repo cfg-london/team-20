@@ -15,6 +15,10 @@ class App extends Component {
   open = () => this.setState({ countryModal: true })
   close = () => this.setState({ countryModal: false })
 
+  handleMove(geography, evt) {
+    alert(geography.properties.name)
+  }
+
   render() {
     const { countryModal } = this.state
     
@@ -46,6 +50,7 @@ class App extends Component {
                   key={i}
                   geography={geography}
                   projection={projection}
+                  onMouseMove={this.handleMove}
                   style={{
                     default: {
                       fill: "#55bab2",
