@@ -29,9 +29,9 @@ const sampleData = [
                 country: "Columbia",
                 survey_full: "2015 DHS",
                 survey_year: "2015",
-                groups: [
-                    ["Total 20-49", 2.1],
-                ],
+                groups: {
+                    "Total 20-49": 2.1,
+                },
             },
         ],
     },
