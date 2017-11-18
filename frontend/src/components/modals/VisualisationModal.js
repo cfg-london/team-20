@@ -83,9 +83,40 @@ class VisualisationModal extends Component {
     }
 
     renderGraph(indicator) {
-        const { data } = this.state
-        
-        
+        const { data, selectedIndicators } = this.state
+
+        const filteredData = Object.values(Object.keys(data)
+            .filter(key => key === indicator)
+            .reduce((obj, key) => {
+                obj[key] = data[key];
+                return obj;
+            }, {}))
+
+
+
+        // const x = Object.entries(filteredData).reduce((acc, [year, vals]) => {
+
+        // }, )
+
+        // console.log(filteredData)
+        const newData = [];
+        for (var index in filteredData) {
+            const filter = filteredData[index];
+            const newFilter = {}
+            for (var yearName in filter) {
+                const year = filter[yearName];
+                const y = {   };
+                
+                for (var g in year) {
+                    y[year[g]] = g;
+                }
+
+                newFilter[yearName] = y;
+            }
+            newData[index] = newFilter;
+        }
+        // console.log(newData)
+
         return (
         <p>{indicator}</p>    
             
