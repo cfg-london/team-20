@@ -39,7 +39,7 @@ function getIndicatorColumns(rows) {
     return indicators;
 }
 
-function getCountries(rows, indicators) {
+function getCountriesAndDescriptions(rows, indicators) {
     let countries = {};
     let indicatorDescriptions = {};
     let indicatorsBegun = false;
@@ -102,20 +102,26 @@ function getCountries(rows, indicators) {
         countries[country].push(survey);
     }
 
-    return countries;
+    return [countries, indicatorDescriptions];
 }
 
 function parse(rows) {
     const indicatorColumns = getIndicatorColumns(rows);
-    const countries = getCountries(rows, indicatorColumns);
+    const both = getCountriesAndDescriptions(rows, indicatorColumns);
+    const countries = both[0];
+    const descriptions = both[1];
 
-    console.log(JSON.stringify(countries, null, 2));
+    // console.log(descriptions);
+
+    // console.log(JSON.stringify(countrie  s, null, 2));
+
+    return { descriptions, countries };
 }
 
-function load() {
+function load(filename, callback) {
     console.log("Loading workbook...")
 
-    const workbook = xlsx.readFile("data.xlsx", {});
+    const workbook = xlsx.readFile(filename, {});
     console.log("Workbook loaded.")
 
     let sheet;
@@ -148,11 +154,13 @@ function load() {
                 return;
             }
 
-            parse(rows);
+            if (callback != null) {
+                callback(parse(rows));
+            }
         });
 }
 
-load();
+// load("data.xlsx", console.log)
 
 const sampleData = {
     "Columbia": [
