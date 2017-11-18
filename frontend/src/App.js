@@ -11,11 +11,11 @@ import './App.css'
 import worldMap from './static/world-50m'
 import logo from './static/em-logo.png'
 const markers = [
-  { markerOffset: 15, name: "Indonesia", coordinates: [108.8236, -2.3931] },
-  { markerOffset: 15, name: "India", coordinates: [77.7029722, 20.7674828] },
-  { markerOffset: 15, name: "Kenya", coordinates: [37.4001329, 0.1650934] },
-  { markerOffset: 15, name: "Senegal", coordinates: [-14.767983, 14.4736107] },
-  { markerOffset: 15, name: "Columbia", coordinates: [-74.8499796, 4.6420107] },
+  { markerOffset: -35, name: "Indonesia", coordinates: [108.8236, -2.3931] },
+  { markerOffset: -35, name: "India", coordinates: [77.7029722, 20.7674828] },
+  { markerOffset: -35, name: "Kenya", coordinates: [37.4001329, 0.1650934] },
+  { markerOffset: -35, name: "Senegal", coordinates: [-14.767983, 14.4736107] },
+  { markerOffset: -35, name: "Columbia", coordinates: [-74.8499796, 4.6420107] },
 ]
 
 const clickableStyle = {
