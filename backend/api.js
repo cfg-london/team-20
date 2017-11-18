@@ -14,7 +14,10 @@ module.exports = db => {
         try {
             const { rows } = await db.query('SELECT country FROM surveys')
 
-            const countries = rows.reduce((acc, {country}) => [...acc, country] , [])
+            const countries = rows.reduce((acc, { country }) => [
+                ...acc,
+                lookup.countries({name: country })[0].alpha3
+            ], [])
 
             res.json({ countries })
 
@@ -34,7 +37,7 @@ module.exports = db => {
         try {
             const { rows } = await db.query('SELECT * FROM surveys WHERE LOWER(country) = LOWER($1)', [name])
 
-            const indicators = rows[0].information.reduce((acc, e) => ({...acc, ...e}), {})
+            const indicators = rows[0].information.reduce((acc, e) => ({ ...acc, ...e }), {})
 
 
             res.json({ indicators })
@@ -48,19 +51,19 @@ module.exports = db => {
 
 
     // Update dataset
-    router.post('/upload', upload.single('data'), async (req, res) => {
+    router.post('/upload', upload.single('data'), async(req, res) => {
         const { path } = req.file
 
         try {
             parse(path, async data => {
                 await db.query('DELETE FROM surveys')
 
-                Object.entries(data.countries).forEach(async ([country, survey]) => {
+                Object.entries(data.countries).forEach(async([country, survey]) => {
                     await db.query('INSERT INTO SURVEYS VALUES ($1, $2)', [country, JSON.stringify(survey)])
                 })
 
             })
-            
+
             res.json({ success: true })
 
         } catch ({ message }) {

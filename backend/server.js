@@ -1,11 +1,9 @@
-const express = require('express')
-const { Pool } = require('pg')
-
 // Load config
 const { database } = require('../config.json')
 console.log('Loaded config')
 
 // Setup PG pool
+const { Pool } = require('pg')
 const db = new Pool(database)
 console.log('Created database connection')
 
