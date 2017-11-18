@@ -187,3 +187,5 @@ const themes = [
         Violence: ["Wife beating justified for at least one specific reason [Women]", "Women circumcised (FGC)", "Physical or sexual violence committed by husband/partner"],
     },
 ];
+
+module.exports = load;
