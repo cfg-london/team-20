@@ -39,9 +39,69 @@ function getIndicatorColumns(rows) {
     return indicators;
 }
 
+function getCountries(rows, indicators) {
+    let countries = {};
+    let indicatorDescriptions = {};
+    let indicatorsBegun = false;
+
+    for (var row = 4; row < rows.length; row++) {
+        let cols = rows[row];
+
+        // Ignore entirely empty rows
+        // (assume entirely empty if first cell is empty)
+        if (cols[0] === "") {
+            continue;
+        }
+
+        // if the first cell is an indicator, this means the next
+        // is a description. add this to a list, and continue.
+        if (cols[1].split(" ").length > 2) {
+            indicatorDescriptions[cols[0]] = cols[1];
+            indicatorsBegun = true;
+            continue;
+        }
+
+        if (indicatorsBegun) {
+            continue;
+        }
+
+        const country = cols[0];
+        if (countries[country] == null) {
+            countries[country] = [];
+        }
+
+        const survey = {
+            survey_full: cols[1],
+            survey_year: cols[1].split(" ")[0],
+            indicators: {},
+        };
+
+        for (let indicator in indicators) {
+            if (indicators.hasOwnProperty(indicator)) {
+                let groupCols = indicators[indicator];
+                let groups = {};
+
+                for (var index = 0; index < groupCols.length; index++) {
+                    let col = groupCols[index];
+                    let name = rows[3][col];
+                    groups[name] = rows[row][col];
+                }
+
+                survey.indicators[indicator] = groups;
+            }
+        }
+
+        countries[country].push(survey);
+    }
+
+    return countries;
+}
+
 function parse(rows) {
     const indicatorColumns = getIndicatorColumns(rows);
-    console.log(indicatorColumns);
+    const countries = getCountries(rows, indicatorColumns);
+
+    console.log(JSON.stringify(countries, null, 2));
 }
 
 function load() {
