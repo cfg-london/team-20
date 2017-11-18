@@ -59,18 +59,13 @@ class Main extends React.Component {
       return null
     }
     
-    var progress = [];
-    
+
     //console.log(data)
     
     Object.entries(data).forEach(([year, indicators]) => {
       
       Object.entries(indicators).forEach(([indicator, groups]) => {
-        
-        var indicatorTotals = []
-        indicatorTotals.push(groups.Total)
-        //var progressVal = (indicatorTotals[indicatorTotals.length-1] - indicatorTotals[0])
-        console.log(indicator,indicatorTotals[0])
+
         
         Object.entries(groups).forEach(([group, value]) => {
           
@@ -78,8 +73,7 @@ class Main extends React.Component {
         
       })
       
-      //console.log(progress);
-      
+
     })
     
     

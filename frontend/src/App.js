@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import { Menu, Image } from 'semantic-ui-react'
-import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
+import { ComposableMap, ZoomableGroup, Geographies, Geography, Markers, Marker } from "react-simple-maps"
 import VisualisationModal from './components/modals/VisualisationModal'
-import { geoPath } from 'd3-geo'
-import { geoTimes } from 'd3-geo-projection'
+// import { geoPath } from 'd3-geo'
+// import { geoTimes } from 'd3-geo-projection'
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 import worldMap from './static/world-50m'
 import logo from './static/em-logo.png'
+const markers = [
+  { markerOffset: 15, name: "Indonesia", coordinates: [108.8236, -2.3931] },
+  { markerOffset: 15, name: "India", coordinates: [77.7029722, 20.7674828] },
+  { markerOffset: 15, name: "Kenya", coordinates: [37.4001329, 0.1650934] },
+  { markerOffset: 15, name: "Senegal", coordinates: [-14.767983, 14.4736107] },
+  { markerOffset: 15, name: "Columbia", coordinates: [-74.8499796, 4.6420107] },
+]
 
 const clickableStyle = {
     default: {
       fill: "rgb(102, 22, 108)",
-      stroke: "#ffffff",
+      stroke: "#00000",
       strokeWidth: 0.75,
       outline: "none",
     },
     hover: {
       fill: "rgb(129, 40, 150)",
-      stroke: "#fff",
+      stroke: "#000000",
       strokeWidth: 0.75,
       outline: "none",
     },
@@ -35,19 +42,19 @@ const clickableStyle = {
 const disabledStyle = {
     default: {
       fill: "#55bab2",
-      stroke: "#ffffff",
+      stroke: "#000000",
       strokeWidth: 0.75,
       outline: "none",
     },
     hover: {
-      fill: "#ffffff",
-      stroke: "#607D8B",
+      fill: "#55bab2",
+      stroke: "#000000",
       strokeWidth: 0.75,
       outline: "none",
     },
     pressed: {
-      fill: "#b8bab9",
-      stroke: "#607D8B",
+      fill: "#55bab2",
+      stroke: "#000000",
       strokeWidth: 0.75,
       outline: "none",
     },
@@ -68,7 +75,6 @@ class App extends Component {
     openCountryVisualiser = (geography, e) => {
         //const path = geoPath().projection(this.projection())
         //const centroid = this.projection().invert(path.centroid(geography))
-
         this.setState({
             countryVisualiser: true,
             geography
@@ -80,12 +86,6 @@ class App extends Component {
         geography: ''
     })
 
-
-    randomf1() {
-        // fetch countries from /countries
-        alert("HEllo");
-
-    }
 
     componentDidMount() {
         fetch('https://jp-17-harjot1singh.c9users.io:8081/api/countries')
@@ -121,18 +121,64 @@ class App extends Component {
                 
                 const clickable = this.state.countries.indexOf(geography.id) !== -1;
                 
+                
                 return (
                     <Geography
                       key={i}
                       geography={geography}
                       projection={projection}
                       onClick={clickable && this.openCountryVisualiser}
-                      style={clickable ? clickableStyle : disabledStyle }
+                      style={clickable ? clickableStyle : disabledStyle}
                     />
                 );
               }
             )}
             </Geographies>
+            <Markers>
+              {markers.map((marker, i) => (
+                <Marker
+                  key={i}
+                  marker={marker}
+                  style={{
+                    default: { stroke: "#fff" },
+                    hover: { stroke: "#fff" },
+                    pressed: { stroke: "#fff" },
+                  }}
+                  >
+                  <g transform="translate(-12, -24)">
+                    <path
+                      fill="none"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      strokeMiterlimit="10"
+                      strokeLinejoin="miter"
+                      d="M20,9c0,4.9-8,13-8,13S4,13.9,4,9c0-5.1,4.1-8,8-8S20,3.9,20,9z"
+                    />
+                    <circle
+                      fill="none"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      strokeMiterlimit="10"
+                      strokeLinejoin="miter"
+                      cx="12"
+                      cy="9"
+                      r="3"
+                    />
+                  </g>
+                  <text
+                    textAnchor="middle"
+                    y={marker.markerOffset}
+                    style={{
+                      fontFamily: "Roboto, sans-serif",
+                      fill: "#fff",
+                      stroke: "none",
+                    }}
+                    >
+                    {marker.name}
+                  </text>
+                </Marker>
+              ))}
+            </Markers>
           </ZoomableGroup>
         </ComposableMap>
 
