@@ -162,7 +162,7 @@ function load(filename, callback) {
                 return;
             }
 
-            if (callback !== null) {
+            if (callback != null) {
                 callback(parse(rows));
             }
         });
