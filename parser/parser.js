@@ -80,14 +80,22 @@ function getCountries(rows, indicators) {
             if (indicators.hasOwnProperty(indicator)) {
                 let groupCols = indicators[indicator];
                 let groups = {};
+                let groupHasVal = false;
 
                 for (var index = 0; index < groupCols.length; index++) {
                     let col = groupCols[index];
                     let name = rows[3][col];
-                    groups[name] = rows[row][col];
+                    let val = rows[row][col];
+
+                    if (val !== "") {
+                        groupHasVal = true;
+                        groups[name] = parseInt(val);
+                    }
                 }
 
-                survey.indicators[indicator] = groups;
+                if (groupHasVal) {
+                    survey.indicators[indicator] = groups;
+                }
             }
         }
 
