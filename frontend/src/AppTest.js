@@ -8,7 +8,12 @@ import './App.css'
 import worldMap from './static/world-50m'
 
 const include = [
-  "RUS"
+  "MAR","DZA", "ZAF", "MUS", "TUN", "CPV", "ETH", "SYC", "NGA", "MDG",
+  "COD", "LBY", "GMB", "KEN", "GHA", "TZA", "MLI", "SDN", "SOM", "CIV",
+  "ZWE", "SEN", "CMR", "ERI", "UGA", "NAM", "REU", "MOZ", "AGO", "GAB",
+  "BFA", "RWA", "GIN", "TCD", "SSD", "MRT", "BWA", "NER", "DJI", "ZMB",
+  "SLE", "MWI", "LBR", "TGO", "BEN", "BDI", "SWZ", "COG", "LSO", "GNQ",
+  "STP", "EGY", "SOM", "CAF", "SOL", "ESH", "GNB"
 ]
 
 class App extends Component {
@@ -34,7 +39,7 @@ class App extends Component {
         </Menu>
     
         <Container text style={{ marginTop: '7em' }}>
-          <Header as='h1'>Title</Header>
+        <p>lololol</p>
           <Button color='blue' onClick={this.open}>Modal</Button>
           <ComposableMap
           projectionConfig={{
@@ -94,7 +99,7 @@ class App extends Component {
                 height: "auto",
               }}
               >
-              <ZoomableGroup center={[ 10, 30 ]} zoom={0.2} disablePanning>
+              <ZoomableGroup center={[ 20, 0 ]} disablePanning>
                 <Geographies geographyUrl={worldMap}>
                   {(geographies, projection) =>
                     geographies.map((geography, i) =>
