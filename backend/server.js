@@ -8,7 +8,10 @@ const db = new Pool(database)
 console.log('Created database connection')
 
 // Setup express app
+const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 
 // Mount API routes on /api/*
 const api = require('./api')(db)

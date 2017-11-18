@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
-import { Modal } from 'semantic-ui-react'
+import { Modal, Button, Icon } from 'semantic-ui-react'
 import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 
 import './VisualisationModal.css'
 
 import worldMap from '../../static/world-50m'
 
-class VisualisationModal extends Component {    
+class VisualisationModal extends Component {
     
     
     close = () => this.props.onHide()
 
+    componentDidMount() {
+        const { geography } = this.props
+        
+    }
+
     render() {
         const { geography, show } = this.props
         
-        if (!show) {
-            return null
-        }
         
-        console.log(this.props)
-
         return (
-            <Modal open={show} onClose={this.close}>
+            <Modal open={show} onClose={this.close} closeIcon>
                 <Modal.Header>{geography.properties.name}</Modal.Header>
                 <Modal.Content>
                     <ComposableMap
@@ -69,6 +69,14 @@ class VisualisationModal extends Component {
                     </ZoomableGroup>
                     </ComposableMap>
                 </Modal.Content>
+                <Modal.Actions>
+                  <Button color='red'>
+                    <Icon name='remove' /> No
+                  </Button>
+                  <Button color='blue'>
+                    <Icon name='checkmark' /> Close
+                  </Button>
+                </Modal.Actions>
             </Modal>
         )
     }

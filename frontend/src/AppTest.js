@@ -9,35 +9,76 @@ import ReactDOM from 'react-dom';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryArea, VictoryLine } from 'victory';
 
 const data2015 = [
-  {agegroup: '15-19', percentage: 64.4},
-  {agegroup: '20-29', percentage: 77.4},
-  {agegroup: '30-39', percentage: 85.2},
-  {agegroup: '40-49', percentage: 82.1}
+  { agegroup: '15-19', percentage: 64.4 },
+  { agegroup: '20-29', percentage: 77.4 },
+  { agegroup: '30-39', percentage: 85.2 },
+  { agegroup: '40-49', percentage: 82.1 }
 ];
 
 const data2010 = [
-  {agegroup: '15-19', percentage: 60.5},
-  {agegroup: '20-29', percentage: 75.6},
-  {agegroup: '30-39', percentage: 83.2},
-  {agegroup: '40-49', percentage: 80.5}
+  { agegroup: '15-19', percentage: 60.5 },
+  { agegroup: '20-29', percentage: 75.6 },
+  { agegroup: '30-39', percentage: 83.2 },
+  { agegroup: '40-49', percentage: 80.5 }
 ];
 
 const data2005 = [
-  {agegroup: '15-19', percentage: 57.2},
-  {agegroup: '20-29', percentage: 75.2},
-  {agegroup: '30-39', percentage: 82.9},
-  {agegroup: '40-49', percentage: 79.1}
+  { agegroup: '15-19', percentage: 57.2 },
+  { agegroup: '20-29', percentage: 75.2 },
+  { agegroup: '30-39', percentage: 82.9 },
+  { agegroup: '40-49', percentage: 79.1 }
 ];
 
 const data2000 = [
-  {agegroup: '15-19', percentage: 57.2},
-  {agegroup: '20-29', percentage: 73.7},
-  {agegroup: '30-39', percentage: 82.0},
-  {agegroup: '40-49', percentage: 77.7}
+  { agegroup: '15-19', percentage: 57.2 },
+  { agegroup: '20-29', percentage: 73.7 },
+  { agegroup: '30-39', percentage: 82.0 },
+  { agegroup: '40-49', percentage: 77.7 }
 ];
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props)
+    
+    this.state = { }
+  }
+  
+  componentDidMount() {
+    const { geography } = this.props
+
+    fetch('https://jp-17-harjot1singh.c9users.io:8081/api/country/IND')
+    .then(res => res.json())
+    .then(({indicators}) => this.setState({data: indicators}))
+  }
+
+
   render() {
+    const { data } = this.state
+    
+    if (!data) {
+      return null
+    }
+    
+    
+    //console.log(data)
+    
+    Object.entries(data).forEach(([year, indicators]) => {
+      
+      Object.entries(indicators).forEach(([indicator, groups]) => {
+        //console.log(indicator, groups)   
+        
+        Object.entries(groups).forEach(([group, value]) => {
+          if(group=='15-19'){
+            console.log(year, value)
+          }
+        })
+        
+      })
+      
+      
+    })
+    
+    
     return (
       <div style={{display:"flex",flexWrap:"wrap"}}>
         <VictoryChart style={{ parent: {maxWidth:"50%"}}}

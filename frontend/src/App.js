@@ -15,6 +15,7 @@ class App extends Component {
         super(props)
         
         this.state = {
+            countries: '',
             countryVisualiser: false,
             geography: '',
             locX: 0,
@@ -48,10 +49,16 @@ class App extends Component {
         
     }
     
+    componentDidMount() {
+        fetch('https://jp-17-harjot1singh.c9users.io:8081/api/countries')
+        .then(res => res.json())
+        .then(({countries}) => this.setState({countries}))
+    }
+    
 
     render() {
         
-        
+        console.log(this.state.countries)
         
         return (
             <div className="App">
@@ -106,7 +113,9 @@ class App extends Component {
           </ZoomableGroup>
         </ComposableMap>
         </Container>
-        <VisualisationModal show={this.state.countryVisualiser} onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />
+        
+        { this.state.countryVisualiser &&
+        <VisualisationModal show={true}  onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />}
       </div>
         )
     }
