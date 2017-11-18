@@ -64,10 +64,10 @@ module.exports = db => {
 
             })
 
-            res.json({ success: true })
+            res.redirect("https://jp-17-harjot1singh.c9users.io:8080/admin?success=true")
 
         } catch ({ message }) {
-            res.json({ error: message })
+            res.redirect("https://jp-17-harjot1singh.c9users.io:8080/admin?error=" + message)
         }
     })
 
