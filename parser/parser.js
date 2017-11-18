@@ -89,7 +89,7 @@ function getCountries(rows, indicators) {
 
                     if (val !== "") {
                         groupHasVal = true;
-                        groups[name] = parseInt(val);
+                        groups[name] = parseFloat(val);
                     }
                 }
 
