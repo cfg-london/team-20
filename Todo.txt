@@ -1,0 +1,5 @@
+Things to do:
+
+- Getting the app to consume some of the data
+- Isolating only the countries that have data to be clickable so that there is always data to feed from
+- Making the 5 countries more clear on the map, different color, marker etc

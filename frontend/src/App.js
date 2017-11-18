@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Menu } from 'semantic-ui-react'
+import { Menu, Image } from 'semantic-ui-react'
 import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 import VisualisationModal from './components/modals/VisualisationModal'
 import { geoPath } from 'd3-geo'
@@ -60,9 +60,7 @@ class App extends Component {
         this.state = {
             countries: '',
             countryVisualiser: false,
-            geography: '',
-            locX: 0,
-            locY: 0
+            geography: ''
         }
     }
 
@@ -73,16 +71,13 @@ class App extends Component {
 
         this.setState({
             countryVisualiser: true,
-            geography,
-            locX: e.locX
+            geography
         })
     }
 
     closeCountryVisualiser = () => this.setState({
         countryVisualiser: false,
-        geography: '',
-        locX: 0,
-        locY: 0
+        geography: ''
     })
 
 
@@ -101,12 +96,10 @@ class App extends Component {
 
     render() {
 
-        console.log(this.state.countries)
-
         return (
             <div className="App" style={{background: '#1b1c1d'}}>
         <Menu fixed='top' inverted>
-            <Menu.Item as='a' header style={{background: '#59bab2'}}>Equal Measures 2030</Menu.Item>
+            <Menu.Item  as='a' header style={{background: '#59bab2', padding: 0}}><Image src={logo} className='logo' /></Menu.Item>
         </Menu>
     
 
