@@ -1,7 +1,8 @@
 {
-    database: {
-        username: "postgres",
-        password: "postgres",
-        host: "localhost"
+    "database": {
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "database": "jp"
     }
 }

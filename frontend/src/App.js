@@ -1,41 +1,58 @@
 import React, { Component } from 'react';
-import { Container, Header, Menu, Modal, Button } from 'semantic-ui-react'
+import { Container, Menu } from 'semantic-ui-react'
 import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
+import VisualisationModal from './components/modals/VisualisationModal'
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 import worldMap from './static/world-50m'
 
-const include = [
-  "RUS"
-]
-
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { countryModal: false }
-  }
-  
-  open = () => this.setState({ countryModal: true })
-  close = () => this.setState({ countryModal: false })
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            countryVisualiser: false,
+            geography: '',
+            locX: 0,
+            locY: 0
+        }
+    }
 
-  handleMove(geography, evt) {
-    console.log(geography.id)
-  }
-
-  render() {
-    const { countryModal } = this.state
+    openCountryVisualiser = (geography, e) => this.setState({
+        countryVisualiser: true,
+        geography,
+        locX: e.clientX,
+        locY: e.clientY + window.pageYOffset
+    })
     
-    return (
-      <div className="App">
+    closeCountryVisualiser = () => this.setState({
+        countryVisualiser: false,
+        geography: '',
+        locX: 0,
+        locY: 0
+    })
+
+    
+    componentDidMount() {
+        // fetch countries from /countries
+        
+        
+    }
+    
+
+    render() {
+        
+        
+        
+        return (
+            <div className="App">
         <Menu fixed='top' inverted>
             <Menu.Item as='a' header>Equal Measures 2030</Menu.Item>
         </Menu>
     
         <Container text style={{ marginTop: '7em' }}>
-          <Header as='h1'>Title</Header>
-          <Button color='blue' onClick={this.open}>Modal</Button>
           <ComposableMap
           projectionConfig={{
             scale: 205,
@@ -55,7 +72,7 @@ class App extends Component {
                   key={i}
                   geography={geography}
                   projection={projection}
-                  onMouseMove={this.handleMove}
+                  onClick={this.openCountryVisualiser}
                   style={{
                     default: {
                       fill: "#55bab2",
@@ -82,58 +99,10 @@ class App extends Component {
           </ZoomableGroup>
         </ComposableMap>
         </Container>
-        <Modal open={countryModal} onClose={this.close}>
-          <Modal.Header>COUNTRYNAME</Modal.Header>
-          <Modal.Content>
-            <ComposableMap
-              projectionConfig={{ scale: 1200 }}
-              width={1400}
-              height={1400}
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              >
-              <ZoomableGroup center={[ 20, 0 ]} zoom={0.2} disablePanning>
-                <Geographies geographyUrl={worldMap}>
-                  {(geographies, projection) =>
-                    geographies.map((geography, i) =>
-                      include.indexOf(geography.id) !== -1 && (
-                        <Geography
-                          key={i}
-                            geography={geography}
-                            projection={projection}
-                            style={{
-                              default: {
-                                fill: "#ECEFF1",
-                                stroke: "#607D8B",
-                                strokeWidth: 0.75,
-                                outline: "none",
-                              },
-                              hover: {
-                                fill: "#CFD8DC",
-                                stroke: "#607D8B",
-                                strokeWidth: 0.75,
-                                outline: "none",
-                              },
-                              pressed: {
-                                fill: "#FF5722",
-                                stroke: "#607D8B",
-                                strokeWidth: 0.75,
-                                outline: "none",
-                              },
-                            }}
-                        />
-                    ))
-                  }
-                </Geographies>
-              </ZoomableGroup>
-            </ComposableMap>
-          </Modal.Content>
-        </Modal>
+        <VisualisationModal show={this.state.countryVisualiser} onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />
       </div>
-    )
-  }
+        )
+    }
 }
 
 export default App

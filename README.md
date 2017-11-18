@@ -23,4 +23,14 @@ cd backend
 NODE_ENV=development npm start
 ```
 
+### Setting up the database
+Database name: jp
+Table name: surveys
+Table schema:
+    CREATE TABLE surveys (
+        country text,
+        information jsonb
+    )
+
+
 
