@@ -6,7 +6,7 @@ import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 import ReactDOM from 'react-dom';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryArea, VictoryLine } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryArea, VictoryLine, VictoryLabel } from 'victory';
 
 const data2015 = [
   { agegroup: '15-19', percentage: 64.4 },
@@ -59,22 +59,26 @@ class Main extends React.Component {
       return null
     }
     
+    var progress = [];
     
     //console.log(data)
     
     Object.entries(data).forEach(([year, indicators]) => {
       
       Object.entries(indicators).forEach(([indicator, groups]) => {
-        //console.log(indicator, groups)   
+        
+        var indicatorTotals = []
+        indicatorTotals.push(groups.Total)
+        //var progressVal = (indicatorTotals[indicatorTotals.length-1] - indicatorTotals[0])
+        console.log(indicator,indicatorTotals[0])
         
         Object.entries(groups).forEach(([group, value]) => {
-          if(group=='15-19'){
-            console.log(year, value)
-          }
+          
         })
         
       })
       
+      //console.log(progress);
       
     })
     
@@ -96,7 +100,7 @@ class Main extends React.Component {
         <VictoryStack
           colorScale={"warm"}
           >
-          <VictoryLine
+          <VictoryBar
             style={{data:{width:30}}}
             data={data2000}
             animate={{
@@ -106,7 +110,7 @@ class Main extends React.Component {
             x="agegroup"
             y="percentage"
           />
-          <VictoryLine
+          <VictoryBar
             style={{data:{width:30}}}
             data={data2005}
             animate={{
@@ -116,7 +120,7 @@ class Main extends React.Component {
             x="agegroup"
             y="percentage"
           />
-          <VictoryLine
+          <VictoryBar
             style={{data:{width:30}}}
             data={data2010}
             animate={{
@@ -126,7 +130,7 @@ class Main extends React.Component {
             x="agegroup"
             y="percentage"
           />
-          <VictoryLine
+          <VictoryBar
             style={{data:{width:30}}}
             data={data2015}
             animate={{

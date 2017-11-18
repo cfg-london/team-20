@@ -13,7 +13,7 @@ import worldMap from './static/world-50m'
 class App extends Component {
     constructor(props) {
         super(props)
-        
+
         this.state = {
             countries: '',
             countryVisualiser: false,
@@ -27,14 +27,14 @@ class App extends Component {
     openCountryVisualiser = (geography, e) => {
         //const path = geoPath().projection(this.projection())
         //const centroid = this.projection().invert(path.centroid(geography))
-        
+
         this.setState({
             countryVisualiser: true,
             geography,
             locX: e.locX
         })
     }
-    
+
     closeCountryVisualiser = () => this.setState({
         countryVisualiser: false,
         geography: '',
@@ -42,31 +42,31 @@ class App extends Component {
         locY: 0
     })
 
-    
+
     randomf1() {
         // fetch countries from /countries
         alert("HEllo");
-        
+
     }
-    
+
     componentDidMount() {
         fetch('https://jp-17-harjot1singh.c9users.io:8081/api/countries')
-        .then(res => res.json())
-        .then(({countries}) => this.setState({countries}))
+            .then(res => res.json())
+            .then(({ countries }) => this.setState({ countries }))
     }
-    
+
 
     render() {
-        
+
         console.log(this.state.countries)
-        
+
         return (
-            <div className="App">
+            <div className="App" style={{background: '#1b1c1d'}}>
         <Menu fixed='top' inverted>
-            <Menu.Item as='a' header>Equal Measures 2030</Menu.Item>
+            <Menu.Item as='a' header style={{background: '#59bab2'}}>Equal Measures 2030</Menu.Item>
         </Menu>
     
-        <Container text style={{ marginTop: '7em' }}>
+
           <ComposableMap
           projectionConfig={{
             scale: 205,
@@ -76,7 +76,7 @@ class App extends Component {
           height={551}
           style={{
             width: "100%",
-            height: "auto",
+            height: "100%"
           }}
           >
           <ZoomableGroup center={[0,20]} disablePanning>
@@ -101,7 +101,7 @@ class App extends Component {
                       outline: "none",
                     },
                     pressed: {
-                      fill: "#FF5722",
+                      fill: "#b8bab9",
                       stroke: "#607D8B",
                       strokeWidth: 0.75,
                       outline: "none",
@@ -112,10 +112,9 @@ class App extends Component {
             </Geographies>
           </ZoomableGroup>
         </ComposableMap>
-        </Container>
-        
+
         { this.state.countryVisualiser &&
-        <VisualisationModal show={true}  onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />}
+        <VisualisationModal show={true} onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />}
       </div>
         )
     }

@@ -25,15 +25,12 @@ class VisualisationModal extends Component {
                 <Modal.Header>{geography.properties.name}</Modal.Header>
                 <Modal.Content>
                     <ComposableMap
-                    projectionConfig={{ scale: 1200 }}
-                    width={1400}
-                    height={1400}
                     style={{
                     width: "100%",
                     height: "auto",
                     }}
                     >
-                    <ZoomableGroup center={[20, 0]} zoom={0.2} disablePanning>
+                    <ZoomableGroup center={[20, 0]} zoom={1} disablePanning>
                     <Geographies geographyUrl={worldMap}>
                         {(geographies, projection) =>
                         geographies.map((geography, i) =>
@@ -70,12 +67,9 @@ class VisualisationModal extends Component {
                     </ComposableMap>
                 </Modal.Content>
                 <Modal.Actions>
-                  <Button color='red'>
-                    <Icon name='remove' /> No
-                  </Button>
-                  <Button color='blue'>
-                    <Icon name='checkmark' /> Close
-                  </Button>
+                    <Button color='green'><Icon name='tasks' /> Compare</Button>
+                  <Button color='yellow'><Icon name='dashboard' /> Indicators</Button>
+                  <Button color='blue' onClick={this.close}><Icon name='close' /> Close</Button>
                 </Modal.Actions>
             </Modal>
         )
