@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Menu } from 'semantic-ui-react'
 import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 import VisualisationModal from './components/modals/VisualisationModal'
+import { geoPath } from 'd3-geo'
+import { geoTimes } from 'd3-geo-projection'
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
@@ -20,12 +22,17 @@ class App extends Component {
         }
     }
 
-    openCountryVisualiser = (geography, e) => this.setState({
-        countryVisualiser: true,
-        geography,
-        locX: e.clientX,
-        locY: e.clientY + window.pageYOffset
-    })
+
+    openCountryVisualiser = (geography, e) => {
+        //const path = geoPath().projection(this.projection())
+        //const centroid = this.projection().invert(path.centroid(geography))
+        
+        this.setState({
+            countryVisualiser: true,
+            geography,
+            locX: e.locX
+        })
+    }
     
     closeCountryVisualiser = () => this.setState({
         countryVisualiser: false,
@@ -35,9 +42,9 @@ class App extends Component {
     })
 
     
-    componentDidMount() {
+    randomf1() {
         // fetch countries from /countries
-        
+        alert("HEllo");
         
     }
     

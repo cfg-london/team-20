@@ -81,10 +81,10 @@ function getCountriesAndDescriptions(rows, indicators) {
             countries[country] = [];
         }
 
+        const year = cols[1].split(" ")[0]
+
         const survey = {
-            survey_full: cols[1],
-            survey_year: cols[1].split(" ")[0],
-            indicators: {},
+            [year]: {}
         };
 
         for (let indicator in indicators) {
@@ -105,7 +105,7 @@ function getCountriesAndDescriptions(rows, indicators) {
                 }
 
                 if (groupHasVal) {
-                    survey.indicators[indicator] = groups;
+                    survey[year][indicator] = groups;
                 }
             }
         }
@@ -122,9 +122,6 @@ function parse(rows) {
     const countries = both[0];
     const descriptions = both[1];
 
-    // console.log(descriptions);
-
-    // console.log(JSON.stringify(countrie  s, null, 2));
 
     return { descriptions, countries, themes };
 }
@@ -137,9 +134,9 @@ function load(filename, callback) {
 
     let sheet;
 
-    for (var sheetName in workbook.Sheets) {
+    for (const sheetName in workbook.Sheets) {
         if (workbook.Sheets.hasOwnProperty(sheetName)) {
-            var currSheet = workbook.Sheets[sheetName];
+            const currSheet = workbook.Sheets[sheetName];
             if (sheetName !== "Indicator Data") {
                 console.log(`Unexpected sheet name '${sheetName}'.`)
                 return;
@@ -165,7 +162,7 @@ function load(filename, callback) {
                 return;
             }
 
-            if (callback != null) {
+            if (callback !== null) {
                 callback(parse(rows));
             }
         });

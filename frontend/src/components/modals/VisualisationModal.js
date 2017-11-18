@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Modal } from 'semantic-ui-react'
 import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 
@@ -33,7 +33,7 @@ class VisualisationModal extends Component {
                     height: "auto",
                     }}
                     >
-                    <ZoomableGroup center={[ 20, 0 ]} zoom={0.2} disablePanning>
+                    <ZoomableGroup center={[20, 0]} zoom={0.2} disablePanning>
                     <Geographies geographyUrl={worldMap}>
                         {(geographies, projection) =>
                         geographies.map((geography, i) =>
