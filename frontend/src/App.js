@@ -9,6 +9,49 @@ import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 import worldMap from './static/world-50m'
+import logo from './static/em-logo.png'
+
+const clickableStyle = {
+    default: {
+      fill: "rgb(102, 22, 108)",
+      stroke: "#ffffff",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+    hover: {
+      fill: "rgb(129, 40, 150)",
+      stroke: "#fff",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+    pressed: {
+      fill: "#b8bab9",
+      stroke: "#607D8B",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+};
+
+const disabledStyle = {
+    default: {
+      fill: "#55bab2",
+      stroke: "#ffffff",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+    hover: {
+      fill: "#ffffff",
+      stroke: "#607D8B",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+    pressed: {
+      fill: "#b8bab9",
+      stroke: "#607D8B",
+      strokeWidth: 0.75,
+      outline: "none",
+    },
+}
 
 class App extends Component {
     constructor(props) {
@@ -81,40 +124,27 @@ class App extends Component {
           >
           <ZoomableGroup center={[0,20]} disablePanning>
             <Geographies geographyUrl={worldMap}>
-              {(geographies, projection) => geographies.map((geography, i) => geography.id !== 'ATA' && (
-                <Geography
-                  key={i}
-                  geography={geography}
-                  projection={projection}
-                  onClick={this.openCountryVisualiser}
-                  style={{
-                    default: {
-                      fill: "#55bab2",
-                      stroke: "#ffffff",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                    hover: {
-                      fill: "#ffffff",
-                      stroke: "#607D8B",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                    pressed: {
-                      fill: "#b8bab9",
-                      stroke: "#607D8B",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                  }}
-                />
-              ))}
+              {(geographies, projection) => geographies.map((geography, i) => {
+                
+                const clickable = this.state.countries.indexOf(geography.id) !== -1;
+                
+                return (
+                    <Geography
+                      key={i}
+                      geography={geography}
+                      projection={projection}
+                      onClick={clickable && this.openCountryVisualiser}
+                      style={clickable ? clickableStyle : disabledStyle }
+                    />
+                );
+              }
+            )}
             </Geographies>
           </ZoomableGroup>
         </ComposableMap>
 
         { this.state.countryVisualiser &&
-        <VisualisationModal show={true} onHide={this.closeCountryVisualiser} geography={this.state.geography} locX={this.state.locX} locY={this.state.locY} />}
+        <VisualisationModal onHide={this.closeCountryVisualiser} geography={this.state.geography} countries={this.state.countries} />}
       </div>
         )
     }

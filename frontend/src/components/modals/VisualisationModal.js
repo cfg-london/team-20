@@ -17,13 +17,14 @@ class VisualisationModal extends Component {
     }
 
     render() {
-        const { geography, show } = this.props
+        const { geography, show, countries } = this.props
         
         
         return (
             <Modal open={show} onClose={this.close} closeIcon>
                 <Modal.Header>{geography.properties.name}</Modal.Header>
                 <Modal.Content>
+                    <p>{JSON.stringify(countries.indexOf(geography.id) !== -1)}</p>
                     <ComposableMap
                     style={{
                     width: "100%",
