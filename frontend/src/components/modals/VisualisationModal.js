@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button, Icon } from 'semantic-ui-react'
+import { Modal, Button, Icon, Dropdown } from 'semantic-ui-react'
 //  import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 
 import './VisualisationModal.css'
@@ -10,7 +10,7 @@ class VisualisationModal extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { data: null }
+        this.state = { data: null, selectedIndicators: [] }
     }
 
 
@@ -29,7 +29,7 @@ class VisualisationModal extends Component {
 
 
     renderData() {
-        const { data } = this.state
+        const { data, selectedIndicators } = this.state
 
         console.log(data)
 
@@ -41,44 +41,55 @@ class VisualisationModal extends Component {
         const averages = indicators.reduce((acc, name) => ({ ...acc, name: 0 }), {})
 
         yearEntries.forEach(([year, indicatorGroup]) => {
-            
-            indicators.forEach(indicator => {
-                const groups = indicatorGroup[indicator]
-                
-                console.log(groups)
-                
-                
-            })
-            
-            
-        } )
 
-
-        Object.entries(data).forEach(([year, indicators]) => {
-
-            // const average = Object.entries(indicators).reduce(([indicator, groups]) => {
-
-            // }, 0)
-
-            Object.entries(indicators).forEach(([indicator, groups]) => {
+            Object.entries(indicatorGroup).forEach(([indicator, groups]) => {
 
                 const groupEntries = Object.entries(groups)
-                    .filter(([group, value]) => group.indexOf('Total') === -1)
 
-                const average = groupEntries.reduce((acc, [group, value]) => acc + value, 0) / groupEntries.length
+                let total
+                if (groupEntries.every(([name, value]) => name.indexOf('Total') > -1)) {
+                    total = groupEntries.reduce((acc, [name, value]) => acc + value, 0) / groupEntries.length
+                } else {
+                    total = groupEntries
+                        .filter(([name, value]) => name.indexOf('Total') > -1)
+                        .reduce((acc, [name, value]) => acc + value, 0)
+                }
 
-                // console.log(groups, average)
-
-                Object.entries(groups).forEach(([group, value]) => {
-
-                })
+                averages[indicators]
 
             })
+
+
+
         })
 
+        console.log(selectedIndicators)
 
-        return null
 
+        return (
+            <div>
+            {selectedIndicators.length === 0 &&
+                <p> show summary changes </p>
+            }
+            
+            {selectedIndicators.length > 0 &&
+                selectedIndicators.map(indicator => this.renderGraph(indicator))
+            }
+            
+                <Dropdown onChange={(e, {value}) => this.setState({selectedIndicators: value})} placeholder='Indicators' fluid multiple selection options={indicators.map(e => ({key:e, text:e, value:e}))}></Dropdown>
+            </div>
+        )
+        
+    }
+
+    renderGraph(indicator) {
+        const { data } = this.state
+        
+        
+        return (
+        <p>{indicator}</p>    
+            
+        )
     }
 
     render() {

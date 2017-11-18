@@ -76,12 +76,9 @@ class App extends Component {
         //const centroid = this.projection().invert(path.centroid(geography))
         const country_coordinates = geography.geometry.coordinates
         const countries = geography.geometry.countries
-        alert(countries)
-        let clickable
-        console.log(country_coordinates)
-        alert(country_coordinates)
-        for (const country in countries){
-            alert(country)
+        for (const i in country_coordinates){
+            alert(i)
+            alert(country_coordinates[i])
         }
         this.setState({
             countryVisualiser: true,
