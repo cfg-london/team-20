@@ -1,13 +1,11 @@
 const { Router } = require('express')
 
-module.exports = () => {
+module.exports = db => {
     const router = Router()
     
     // Tries to send all the data back
     router.get('/', (req, res) => {
-        res.json({
-        
-        })
+        res.json({})
     })
     
     
@@ -18,13 +16,10 @@ module.exports = () => {
     
     
     // Get the data for a coutnry
-    router.get('/:country/surveys', (req, res) => {
+    router.get('/:country/', (req, res) => {
         res.json({})
     })
     
-    
-    // get surveys for a country
-    router.get('')
     
     return router
 }
