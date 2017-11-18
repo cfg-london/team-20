@@ -84,7 +84,7 @@ function getCountriesAndDescriptions(rows, indicators) {
         const year = cols[1].split(" ")[0]
 
         const survey = {
-            [year]: {}
+         
         };
 
         for (let indicator in indicators) {
@@ -105,7 +105,11 @@ function getCountriesAndDescriptions(rows, indicators) {
                 }
 
                 if (groupHasVal) {
-                    survey[year][indicator] = groups;
+                    if (!survey[indicator]) {
+                        survey[indicator] = {}
+                    }
+                    
+                    survey[indicator][year] = groups;
                 }
             }
         }

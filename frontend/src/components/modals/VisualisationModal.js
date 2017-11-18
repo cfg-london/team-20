@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Modal, Button, Icon, Dropdown } from 'semantic-ui-react'
+import { Modal, Button, Icon, Dropdown, Table } from 'semantic-ui-react'
+import { VictoryChart, VictoryLine } from 'victory'
+
 //  import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 
 import './VisualisationModal.css'
 
 // import worldMap from '../../static/world-50m'
+
 
 class VisualisationModal extends Component {
     constructor(props) {
@@ -33,43 +36,34 @@ class VisualisationModal extends Component {
 
         console.log(data)
 
-        const yearEntries = Object.entries(data)
-
-        const indicators = Object.keys(yearEntries[0][1])
-
-
-        const averages = indicators.reduce((acc, name) => ({ ...acc, name: 0 }), {})
-
-        yearEntries.forEach(([year, indicatorGroup]) => {
-
-            Object.entries(indicatorGroup).forEach(([indicator, groups]) => {
-
-                const groupEntries = Object.entries(groups)
-
-                let total
-                if (groupEntries.every(([name, value]) => name.indexOf('Total') > -1)) {
-                    total = groupEntries.reduce((acc, [name, value]) => acc + value, 0) / groupEntries.length
-                } else {
-                    total = groupEntries
-                        .filter(([name, value]) => name.indexOf('Total') > -1)
-                        .reduce((acc, [name, value]) => acc + value, 0)
-                }
-
-                averages[indicators]
-
-            })
-
-
-
-        })
-
-        console.log(selectedIndicators)
-
+        const indicators = Object.keys(data)
 
         return (
             <div>
             {selectedIndicators.length === 0 &&
-                <p> show summary changes </p>
+                <Table celled>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>Getting Better</Table.HeaderCell>
+        <Table.HeaderCell>Getting Worse</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell positive>Demand for family planning satisfied by modern methods</Table.Cell>
+        <Table.Cell negative>Women giving birth by age 18</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell positive>Women who decide themselves how their earnings are used</Table.Cell>
+        <Table.Cell negative>Women who are literate</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell positive>Women with secondary or higher education</Table.Cell>
+        <Table.Cell negative>Women giving birth by age 15</Table.Cell>
+      </Table.Row>
+    </Table.Body>
+  </Table>
             }
             
             {selectedIndicators.length > 0 &&
@@ -79,7 +73,7 @@ class VisualisationModal extends Component {
                 <Dropdown onChange={(e, {value}) => this.setState({selectedIndicators: value})} placeholder='Indicators' fluid multiple selection options={indicators.map(e => ({key:e, text:e, value:e}))}></Dropdown>
             </div>
         )
-        
+
     }
 
     renderGraph(indicator) {
@@ -105,7 +99,7 @@ class VisualisationModal extends Component {
             const newFilter = {}
             for (var yearName in filter) {
                 const year = filter[yearName];
-                const y = {   };
+                const y = {};
                 
                 for (var g in year) {
                     y[year[g]] = g;
@@ -115,11 +109,20 @@ class VisualisationModal extends Component {
             }
             newData[index] = newFilter;
         }
-        // console.log(newData)
+        console.log(newData)
 
         return (
-        <p>{indicator}</p>    
+            <div key={indicator}> 
             
+                <p>{indicator}</p>    
+                
+                <VictoryChart domain={{y:[0, 100]}} height={200}>
+            
+                    <VictoryLine />
+                    <VictoryLine />
+                
+                </VictoryChart>
+            </div>
         )
     }
 
