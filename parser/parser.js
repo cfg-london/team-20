@@ -126,7 +126,7 @@ function parse(rows) {
 
     // console.log(JSON.stringify(countrie  s, null, 2));
 
-    return { descriptions, countries };
+    return { descriptions, countries, themes };
 }
 
 function load(filename, callback) {
@@ -171,7 +171,7 @@ function load(filename, callback) {
         });
 }
 
-// load("data.xlsx", console.log)
+// load("data.xlsx", d => console.log(JSON.stringify(d, null, 2)))
 
 const sampleData = {
     "Columbia": [
