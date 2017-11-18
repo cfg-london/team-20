@@ -1,6 +1,17 @@
 const xlsx = require("xlsx");
 const csv = require("csvtojson");
 
+// TODO: Make sure we think about how this can be updated etc
+const themes = [
+    {
+        Education: ["Women with secondary or higher education", "Median years of education completed [Women]", "Women who are literate"],
+        Work: ["Women who worked in the last 12 months and are currently", "Women who decide themselves how their earnings are used", "Women who decide jointly with partner how their earnings are used", "Wife earns more than husband"],
+        ReproductiveHealth: ["Women giving birth by age 15", "Women giving birth by age 18", "Married women currently using any method of contraception", "Married women currently using any modern method of contraception", "Unmet need for family planning", "Demand for family planning satisfied by modern methods", "No antenatal care"],
+        Marriage: ["Women first married by exact age 15", "Women first married by exact age 18", ],
+        Violence: ["Wife beating justified for at least one specific reason [Women]", "Women circumcised (FGC)", "Physical or sexual violence committed by husband/partner"],
+    },
+];
+
 function getIndicatorColumns(rows) {
     const indicators = {
         // "indicator": [columnInt, columnInt]
@@ -175,17 +186,5 @@ const sampleData = {
         },
     ],
 };
-
-
-// TODO: Make sure we think about how this can be updated etc
-const themes = [
-    {
-        Education: ["Women with secondary or higher education", "Median years of education completed [Women]", "Women who are literate"],
-        Work: ["Women who worked in the last 12 months and are currently", "Women who decide themselves how their earnings are used", "Women who decide jointly with partner how their earnings are used", "Wife earns more than husband"],
-        ReproductiveHealth: ["Women giving birth by age 15", "Women giving birth by age 18", "Married women currently using any method of contraception", "Married women currently using any modern method of contraception", "Unmet need for family planning", "Demand for family planning satisfied by modern methods", "No antenatal care"],
-        Marriage: ["Women first married by exact age 15", "Women first married by exact age 18", ],
-        Violence: ["Wife beating justified for at least one specific reason [Women]", "Women circumcised (FGC)", "Physical or sexual violence committed by husband/partner"],
-    },
-];
 
 module.exports = load;
