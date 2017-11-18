@@ -32,10 +32,12 @@ module.exports = db => {
         const { name } = lookup.countries({ alpha3: countryCode })[0]
 
         try {
-            console.log('Looking up', name, ' given', countryCode)
             const { rows } = await db.query('SELECT * FROM surveys WHERE LOWER(country) = LOWER($1)', [name])
 
-            res.json({ indicators: rows[0].information })
+            const indicators = rows[0].information.reduce((acc, e) => ({...acc, ...e}), {})
+
+
+            res.json({ indicators })
 
 
         } catch ({ message }) {
