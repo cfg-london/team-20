@@ -94,7 +94,7 @@ class App extends Component {
                 height: "auto",
               }}
               >
-              <ZoomableGroup center={[ 10, 30 ]} zoom={0.2} disablePanning>
+              <ZoomableGroup center={[ 20, 0 ]} zoom={0.2} disablePanning>
                 <Geographies geographyUrl={worldMap}>
                   {(geographies, projection) =>
                     geographies.map((geography, i) =>

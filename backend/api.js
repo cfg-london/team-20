@@ -11,5 +11,20 @@ module.exports = () => {
     })
     
     
+    // Sends a list of the countries
+    router.get('/countries', (req, res) => {
+        res.json({})
+    })
+    
+    
+    // Get the data for a coutnry
+    router.get('/:country/surveys', (req, res) => {
+        res.json({})
+    })
+    
+    
+    // get surveys for a country
+    router.get('')
+    
     return router
 }
